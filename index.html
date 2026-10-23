@@ -146,7 +146,7 @@ b,strong{font-weight:700}
 .caps{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:18px;padding-block:20px 28px;padding-left:var(--gl);padding-right:var(--gr)}
 .cap{background:var(--carta);color:var(--lava);border:2px solid var(--lava);box-shadow:7px 7px 0 var(--arancia);padding:12px 18px 15px;min-width:0}
 .cap__k{font-weight:700;font-size:var(--fs-label);letter-spacing:.06em;color:var(--ionio)}
-.cap__t{font-family:var(--f-display);font-weight:800;font-size:clamp(1.75rem,2.6vw,2.25rem);line-height:1.05;text-transform:uppercase;letter-spacing:.02em;margin-top:2px}
+.cap__t{font-family:var(--f-display);font-weight:800;font-size:clamp(1.75rem,2.6vw,2.25rem);line-height:1.05;text-transform:uppercase;letter-spacing:.02em;margin-top:2px;word-break:keep-all;overflow-wrap:anywhere}
 .cap__b{font-size:1rem;line-height:1.7;margin-top:6px}
 .cap__b b{font-weight:900}
 .anim .maprun{height:calc(var(--run,300) * 1vh);height:calc(var(--run,300) * 1svh)}
@@ -208,6 +208,16 @@ b,strong{font-weight:700}
   .city__sub{font-size:1.25rem;margin-top:6px}
   .city__intro{font-size:var(--fs-body);margin-top:6px}
   .anim .city__note{display:none}
+}
+/* landscape phones: stacking the poster over the text leaves the intro below the 390px-tall pinned stage, where overflow:hidden cuts it off for good, so sit them side by side */
+@media (max-width:899px) and (orientation:landscape){
+  .city__stage{grid-template-columns:minmax(0,1fr) auto;gap:clamp(16px,3vw,28px);align-content:center}
+  .poster,.anim .poster{order:0;justify-self:end;width:calc((100svh - 40px) * .815)}
+  .city__name{font-size:clamp(2.75rem,8vw,4.25rem)}
+}
+/* short portrait phones (iPhone SE): a smaller poster so the longest intro (Palermo) still fits in the stage */
+@media (max-width:899px) and (orientation:portrait) and (max-height:640px){
+  .anim .poster{width:min(92%, calc(42svh * .815))}
 }
 
 /* ---------- DAYS ---------- */
@@ -444,7 +454,7 @@ b,strong{font-weight:700}
 @media (max-width:600px){ .route .pin__note{display:none} .route .pin__name{font-size:.8125rem} .route .pin__tag{padding:1px 6px 2px} .route .veh svg{transform:scale(.6)} }
 .trip--etna .route{border-color:var(--carta)}
 .credits{margin-top:6px;font-weight:400;font-size:.875rem;line-height:1.6}
-.credits summary{cursor:pointer;font-weight:700}
+.credits summary{cursor:pointer;font-weight:700;padding-block:11px;margin-block:-11px}
 .credits ul{list-style:none;padding:0;margin-top:8px;columns:2 22em;column-gap:28px}
 .credits li{break-inside:avoid;margin-bottom:4px}
 .credits a{color:inherit}
