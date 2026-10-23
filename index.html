@@ -87,19 +87,27 @@ b,strong{font-weight:700}
 /* the 21 days: one cell per day, coloured by where that night is spent; the grid gap draws the lines between days */
 .strip__days{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(21,minmax(0,1fr));gap:2px;background:var(--lava);border:2px solid var(--lava);box-shadow:4px 4px 0 var(--lava)}
 .strip__days li{display:flex;min-width:0}
-.strip__days a{flex:1;display:block;min-height:24px;background:var(--sw)}
-.strip__days a:hover,.strip__days a:focus-visible{outline:none;box-shadow:inset 0 0 0 3px var(--zolfo),inset 0 0 0 5px var(--lava)}
-.strip__days li[style*="--lava"]+li[style*="--lava"] a{box-shadow:inset 1px 0 0 color-mix(in srgb,var(--carta) 30%,transparent)}
-.strip__days li[style*="--lava"]+li[style*="--lava"] a:hover,.strip__days li[style*="--lava"]+li[style*="--lava"] a:focus-visible{box-shadow:inset 0 0 0 3px var(--zolfo),inset 0 0 0 5px var(--lava)}
+.strip__days a{flex:1;display:block;min-height:24px;background:var(--sw);position:relative;transition:transform .18s cubic-bezier(.2,.7,.2,1),box-shadow .18s ease}
+/* a hairline between the black Catania cells, which the black grid lines alone can't show */
+.strip__days li[style*="--lava"]+li[style*="--lava"] a::before{content:"";position:absolute;inset:0 auto 0 0;width:1px;background:color-mix(in srgb,var(--carta) 30%,transparent)}
 .bases{list-style:none;padding:0;margin-top:14px;display:grid;grid-template-columns:3fr 4fr 6fr 2.3fr 5.7fr;gap:12px 14px}
 .bases li{min-width:0}
-.bases__a{display:grid;grid-template-columns:auto 1fr;column-gap:8px;align-content:start;color:inherit;text-decoration:none}
-.bases__a:hover .bases__name,.bases__a:focus-visible .bases__name{text-decoration:underline;text-decoration-thickness:3px;text-underline-offset:4px}
-.bases__a:focus-visible{outline:3px solid var(--zolfo);outline-offset:4px}
+.bases__a{display:grid;grid-template-columns:auto 1fr;column-gap:8px;align-content:start;color:inherit;text-decoration:none;width:fit-content;max-width:calc(100% + 20px);padding:8px 10px;margin:-8px -10px;transition:transform .18s cubic-bezier(.2,.7,.2,1),box-shadow .18s ease,background-color .18s ease}
 .h-hit{fill:transparent}
-.h-link{cursor:pointer}
-.h-link:hover text:last-of-type{text-decoration:underline;text-decoration-thickness:2px}
-.h-link:hover circle{stroke:var(--zolfo);stroke-width:3}
+.h-link{cursor:pointer;transform-box:fill-box;transform-origin:center;transition:transform .18s cubic-bezier(.2,.7,.2,1),filter .18s ease}
+/* links lift off the page under the pointer (or keyboard focus): a little bigger, raised, with a print-offset shadow and a soft one below */
+.strip__days a:focus-visible{outline:none;z-index:2;transform:translateY(-3px) scale(1.3);box-shadow:0 0 0 2px var(--lava),0 0 0 4px var(--carta),0 10px 16px rgba(10,14,22,.5)}
+.bases__a:focus-visible{outline:none;background:var(--ionio-deep);transform:translate(-2px,-4px) scale(1.04);box-shadow:6px 8px 0 var(--lava),0 14px 22px rgba(10,14,22,.35)}
+@media (hover:hover){
+  .strip__days a:hover{z-index:2;transform:translateY(-3px) scale(1.3);box-shadow:0 0 0 2px var(--lava),0 0 0 4px var(--carta),0 10px 16px rgba(10,14,22,.5)}
+  .bases__a:hover{background:var(--ionio-deep);transform:translate(-2px,-4px) scale(1.04);box-shadow:6px 8px 0 var(--lava),0 14px 22px rgba(10,14,22,.35)}
+  .h-link:hover{transform:translateY(-3px) scale(1.18);filter:drop-shadow(2px 3px 0 var(--lava)) drop-shadow(0 8px 8px rgba(10,14,22,.45))}
+  .h-link:hover circle{stroke:var(--zolfo);stroke-width:3}
+}
+@media (prefers-reduced-motion:reduce){
+  .strip__days a,.bases__a,.h-link{transition:none}
+  .strip__days a:hover,.strip__days a:focus-visible,.bases__a:hover,.bases__a:focus-visible,.h-link:hover{transform:none}
+}
 [id^="day-"]{scroll-margin-top:16px}
 /* the extra anchor for the second day of a shared entry (day 7, day 20) must not take a grid cell */
 .day{position:relative}
