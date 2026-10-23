@@ -254,12 +254,12 @@ b,strong{font-weight:700}
 .trip--etna .more summary::before{background:linear-gradient(var(--lava),var(--lava)) center/12px 3px no-repeat,linear-gradient(var(--lava),var(--lava)) center/3px 12px no-repeat,var(--zolfo)}
 .trip--etna .more[open] summary::before{background:linear-gradient(var(--lava),var(--lava)) center/12px 3px no-repeat,var(--zolfo)}
 .trip--etna .more summary:hover{color:var(--zolfo)}
-.ruler{margin-top:16px;padding-top:26px;position:relative}
+.ruler{margin-top:16px;padding-top:26px;padding-bottom:22px;position:relative}
 .ruler__track{position:relative;height:16px;background:var(--lava-2);border:2px solid var(--carta)}
 .seg{position:absolute;top:0;bottom:0;left:calc((var(--a) - 8) / 9.5 * 100%);width:calc((var(--b) - var(--a)) / 9.5 * 100%)}
 .seg--up{background:var(--arancia)} .seg--stay{background:var(--zolfo)}
 .mk{position:absolute;bottom:100%;left:calc((var(--t) - 8) / 9.5 * 100%);transform:translateX(-100%);font-weight:900;font-size:.875rem;white-space:nowrap;line-height:1;padding:0 6px 6px 0;border-right:3px solid var(--arancia);height:30px;display:flex;align-items:flex-start;color:var(--carta)}
-.mk--sun{bottom:auto;top:100%;border-right-color:var(--zolfo);padding:6px 6px 0 0;height:26px;align-items:flex-end;color:var(--zolfo)}
+.mk--sun{bottom:auto;top:100%;border-right-color:var(--zolfo);padding:6px 6px 0 0;height:46px;align-items:flex-end;color:var(--zolfo)}
 .ruler__hours{position:relative;height:22px;margin-top:2px;font-family:var(--f-display);font-weight:700;font-size:.9375rem;color:var(--carta);opacity:.8}
 .ruler__hours span{position:absolute;left:calc((var(--t) - 8) / 9.5 * 100%);transform:translateX(-50%)}
 @media (max-width:760px){
@@ -802,7 +802,7 @@ b,strong{font-weight:700}
                     <span class="mk" style="--t:16.5">16:30 回程</span>
                     <span class="mk mk--sun" style="--t:16.68">日落 16:41</span>
                   </div>
-                  <div class="ruler__hours" aria-hidden="true"><span style="--t:8">8</span><span style="--t:10">10</span><span style="--t:12">12</span><span style="--t:14">14</span></div>
+                  <div class="ruler__hours" aria-hidden="true"><span style="--t:8">8</span><span style="--t:10">10</span><span style="--t:12">12</span><span style="--t:14">14</span><span style="--t:16">16</span></div>
                 </div>
                 <ul class="sights">
                   <li><span class="when">8:15 → 10:15</span>AST 巴士從 Catania Centrale 前出發，到 Rifugio Sapienza（約 1,900 公尺）。<span class="flag">回程 16:30 唯一一班</span></li>
