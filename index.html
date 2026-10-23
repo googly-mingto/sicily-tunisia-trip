@@ -1759,6 +1759,11 @@ window.TRIP_MAP = {"width":1200,"height":1000,"projection":"Mercator fitted to l
   function refresh() { ST.refresh(); maps.forEach(function (m) { m.remeasure(); }); routes.forEach(function (r) { r.remeasure(); }); }
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(refresh);
   window.addEventListener('load', refresh);
+  /* opening or closing a details block changes the page height, so every trigger below it has to be re-measured */
+  var pendingRefresh = 0;
+  document.querySelectorAll('details').forEach(function (d) {
+    d.addEventListener('toggle', function () { cancelAnimationFrame(pendingRefresh); pendingRefresh = requestAnimationFrame(refresh); });
+  });
 })();
 </script>
 <script>
