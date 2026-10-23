@@ -87,7 +87,7 @@ b,strong{font-weight:700}
 /* the 21 days: one cell per day, coloured by where that night is spent; the grid gap draws the lines between days */
 .strip__days{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(21,minmax(0,1fr));gap:2px;background:var(--lava);border:2px solid var(--lava);box-shadow:4px 4px 0 var(--lava)}
 .strip__days li{display:flex;min-width:0}
-.strip__days a{flex:1;display:grid;place-items:center;min-height:22px;background:var(--sw);color:var(--swt,var(--lava));font-family:var(--f-display);font-weight:800;font-size:.9375rem;line-height:1;text-decoration:none;font-variant-numeric:tabular-nums;transition:background-color .15s ease,color .15s ease}
+.strip__days a{flex:1;display:block;min-height:22px;background:var(--sw)}
 .strip__days a:hover,.strip__days a:focus-visible{outline:none;box-shadow:inset 0 0 0 3px var(--zolfo),inset 0 0 0 5px var(--lava)}
 .strip__days li[style*="--lava"]+li[style*="--lava"] a{box-shadow:inset 1px 0 0 color-mix(in srgb,var(--carta) 30%,transparent)}
 .strip__days li[style*="--lava"]+li[style*="--lava"] a:hover,.strip__days li[style*="--lava"]+li[style*="--lava"] a:focus-visible{box-shadow:inset 0 0 0 3px var(--zolfo),inset 0 0 0 5px var(--lava)}
@@ -331,7 +331,7 @@ b,strong{font-weight:700}
   .hint{white-space:normal}
   /* on a phone the 21 days wrap into three weeks of seven, big enough to tap */
   .strip__days{grid-template-columns:repeat(7,minmax(0,1fr))}
-  .strip__days a{min-height:44px;font-size:1.125rem}
+  .strip__days a{min-height:44px}
 }
 @media (prefers-reduced-motion:reduce){ .hint svg{animation:none!important} }
 
@@ -481,27 +481,27 @@ b,strong{font-weight:700}
       <div class="hero__bhrow"><h2 class="hero__bh">五個據點</h2><p class="strip__cap" aria-hidden="true">點一格，跳到那一天的行程</p></div>
       <nav class="strip" aria-label="21 天，點一天跳到那天的行程">
         <ol class="strip__days">
-          <li style="--sw:var(--cielo)"><a href="#day-1" data-title="第 1 天 · 抵達＋Ortigia" aria-label="第 1 天，住 Siracusa：抵達＋Ortigia">1</a></li>
-          <li style="--sw:var(--cielo)"><a href="#day-2" data-title="第 2 天 · 市場＋考古區" aria-label="第 2 天，住 Siracusa：市場＋考古區">2</a></li>
-          <li style="--sw:var(--cielo)"><a href="#day-3" data-title="第 3 天 · Noto 一日" aria-label="第 3 天，住 Siracusa：Noto 一日">3</a></li>
-          <li style="--sw:var(--lava);--swt:var(--carta)"><a href="#day-4" data-title="第 4 天 · 魚市、修道院、炭烤街" aria-label="第 4 天，住 Catania：魚市、修道院、炭烤街">4</a></li>
-          <li style="--sw:var(--lava);--swt:var(--carta)"><a href="#day-5" data-title="第 5 天 · 老城" aria-label="第 5 天，住 Catania：老城">5</a></li>
-          <li style="--sw:var(--lava);--swt:var(--carta)"><a href="#day-6" data-title="第 6 天 · Etna 或 Taormina，看天氣" aria-label="第 6 天，住 Catania：Etna 或 Taormina，看天氣">6</a></li>
-          <li style="--sw:var(--lava);--swt:var(--carta)"><a href="#day-7" data-title="第 7 天 · Etna 或 Taormina，看天氣" aria-label="第 7 天，住 Catania：Etna 或 Taormina，看天氣">7</a></li>
-          <li style="--sw:var(--arancia)"><a href="#day-8" data-title="第 8 天 · 傍晚落地，新城區散步" aria-label="第 8 天，住 Tunis：傍晚落地，新城區散步">8</a></li>
-          <li style="--sw:var(--arancia)"><a href="#day-9" data-title="第 9 天 · Médina＋Bardo" aria-label="第 9 天，住 Tunis：Médina＋Bardo">9</a></li>
-          <li style="--sw:var(--arancia)"><a href="#day-10" data-title="第 10 天 · 聖城 Kairouan，綠洲 Tozeur" aria-label="第 10 天，住 Tunis：聖城 Kairouan，綠洲 Tozeur">10</a></li>
-          <li style="--sw:var(--arancia)"><a href="#day-11" data-title="第 11 天 · 山中綠洲、Star Wars、鹽湖" aria-label="第 11 天，住 Tunis：山中綠洲、Star Wars、鹽湖">11</a></li>
-          <li style="--sw:var(--arancia)"><a href="#day-12" data-title="第 12 天 · 穴居、競技場，回到海邊" aria-label="第 12 天，住 Tunis：穴居、競技場，回到海邊">12</a></li>
-          <li style="--sw:var(--arancia)"><a href="#day-13" data-title="第 13 天 · Carthage、La Goulette、Sidi Bou Saïd" aria-label="第 13 天，住 Tunis：Carthage、La Goulette、Sidi Bou Saïd">13</a></li>
-          <li style="--sw:var(--zolfo)"><a href="#day-14" data-title="第 14 天 · 傍晚到站，看打燈的神殿" aria-label="第 14 天，住 Agrigento：傍晚到站，看打燈的神殿">14</a></li>
-          <li style="--sw:var(--carta)"><a href="#day-15" data-title="第 15 天 · Valle dei Templi" aria-label="第 15 天，住 Capaci：Valle dei Templi">15</a></li>
-          <li style="--sw:var(--carta)"><a href="#day-16" data-title="第 16 天 · Mondello 海邊攀岩" aria-label="第 16 天，住 Capaci：Mondello 海邊攀岩">16</a></li>
-          <li style="--sw:var(--carta)"><a href="#day-17" data-title="第 17 天 · SLT 2026 開幕＋聖露西亞節" aria-label="第 17 天，住 Capaci：SLT 2026 開幕＋聖露西亞節">17</a></li>
-          <li style="--sw:var(--carta)"><a href="#day-18" data-title="第 18 天 · 翹課半天：Palermo 老城" aria-label="第 18 天，住 Capaci：翹課半天：Palermo 老城">18</a></li>
-          <li style="--sw:var(--carta)"><a href="#day-19" data-title="第 19 天 · 會議，晚上進城" aria-label="第 19 天，住 Capaci：會議，晚上進城">19</a></li>
-          <li style="--sw:var(--carta)"><a href="#day-20" data-title="第 20 天 · 會議，晚上進城" aria-label="第 20 天，住 Capaci：會議，晚上進城">20</a></li>
-          <li class="strip__home" style="--sw:var(--ionio-deep);--swt:var(--zolfo)"><a href="#day-21" data-title="第 21 天 · 飛回台北" aria-label="第 21 天：飛回台北">21</a></li>
+          <li style="--sw:var(--cielo)"><a href="#day-1" data-title="第 1 天 · 抵達＋Ortigia" aria-label="第 1 天，住 Siracusa：抵達＋Ortigia"></a></li>
+          <li style="--sw:var(--cielo)"><a href="#day-2" data-title="第 2 天 · 市場＋考古區" aria-label="第 2 天，住 Siracusa：市場＋考古區"></a></li>
+          <li style="--sw:var(--cielo)"><a href="#day-3" data-title="第 3 天 · Noto 一日" aria-label="第 3 天，住 Siracusa：Noto 一日"></a></li>
+          <li style="--sw:var(--lava);--swt:var(--carta)"><a href="#day-4" data-title="第 4 天 · 魚市、修道院、炭烤街" aria-label="第 4 天，住 Catania：魚市、修道院、炭烤街"></a></li>
+          <li style="--sw:var(--lava);--swt:var(--carta)"><a href="#day-5" data-title="第 5 天 · 老城" aria-label="第 5 天，住 Catania：老城"></a></li>
+          <li style="--sw:var(--lava);--swt:var(--carta)"><a href="#day-6" data-title="第 6 天 · Etna 或 Taormina，看天氣" aria-label="第 6 天，住 Catania：Etna 或 Taormina，看天氣"></a></li>
+          <li style="--sw:var(--lava);--swt:var(--carta)"><a href="#day-7" data-title="第 7 天 · Etna 或 Taormina，看天氣" aria-label="第 7 天，住 Catania：Etna 或 Taormina，看天氣"></a></li>
+          <li style="--sw:var(--arancia)"><a href="#day-8" data-title="第 8 天 · 傍晚落地，新城區散步" aria-label="第 8 天，住 Tunis：傍晚落地，新城區散步"></a></li>
+          <li style="--sw:var(--arancia)"><a href="#day-9" data-title="第 9 天 · Médina＋Bardo" aria-label="第 9 天，住 Tunis：Médina＋Bardo"></a></li>
+          <li style="--sw:var(--arancia)"><a href="#day-10" data-title="第 10 天 · 聖城 Kairouan，綠洲 Tozeur" aria-label="第 10 天，住 Tunis：聖城 Kairouan，綠洲 Tozeur"></a></li>
+          <li style="--sw:var(--arancia)"><a href="#day-11" data-title="第 11 天 · 山中綠洲、Star Wars、鹽湖" aria-label="第 11 天，住 Tunis：山中綠洲、Star Wars、鹽湖"></a></li>
+          <li style="--sw:var(--arancia)"><a href="#day-12" data-title="第 12 天 · 穴居、競技場，回到海邊" aria-label="第 12 天，住 Tunis：穴居、競技場，回到海邊"></a></li>
+          <li style="--sw:var(--arancia)"><a href="#day-13" data-title="第 13 天 · Carthage、La Goulette、Sidi Bou Saïd" aria-label="第 13 天，住 Tunis：Carthage、La Goulette、Sidi Bou Saïd"></a></li>
+          <li style="--sw:var(--zolfo)"><a href="#day-14" data-title="第 14 天 · 傍晚到站，看打燈的神殿" aria-label="第 14 天，住 Agrigento：傍晚到站，看打燈的神殿"></a></li>
+          <li style="--sw:var(--carta)"><a href="#day-15" data-title="第 15 天 · Valle dei Templi" aria-label="第 15 天，住 Capaci：Valle dei Templi"></a></li>
+          <li style="--sw:var(--carta)"><a href="#day-16" data-title="第 16 天 · Mondello 海邊攀岩" aria-label="第 16 天，住 Capaci：Mondello 海邊攀岩"></a></li>
+          <li style="--sw:var(--carta)"><a href="#day-17" data-title="第 17 天 · SLT 2026 開幕＋聖露西亞節" aria-label="第 17 天，住 Capaci：SLT 2026 開幕＋聖露西亞節"></a></li>
+          <li style="--sw:var(--carta)"><a href="#day-18" data-title="第 18 天 · 翹課半天：Palermo 老城" aria-label="第 18 天，住 Capaci：翹課半天：Palermo 老城"></a></li>
+          <li style="--sw:var(--carta)"><a href="#day-19" data-title="第 19 天 · 會議，晚上進城" aria-label="第 19 天，住 Capaci：會議，晚上進城"></a></li>
+          <li style="--sw:var(--carta)"><a href="#day-20" data-title="第 20 天 · 會議，晚上進城" aria-label="第 20 天，住 Capaci：會議，晚上進城"></a></li>
+          <li class="strip__home" style="--sw:var(--ionio-deep);--swt:var(--zolfo)"><a href="#day-21" data-title="第 21 天 · 飛回台北" aria-label="第 21 天：飛回台北"></a></li>
         </ol>
       </nav>
       <ol class="bases">
