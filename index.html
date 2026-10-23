@@ -103,6 +103,10 @@ b,strong{font-weight:700}
   .bases__a:hover{background:var(--ionio-deep);transform:translate(-2px,-4px) scale(1.04);box-shadow:6px 8px 0 var(--lava),0 14px 22px rgba(10,14,22,.35)}
   .h-link:hover{transform:translateY(-3px) scale(1.18);filter:drop-shadow(2px 3px 0 var(--lava)) drop-shadow(0 8px 8px rgba(10,14,22,.45))}
   .h-link:hover circle{stroke:var(--zolfo);stroke-width:3}
+  /* Agrigento is the one name printed in dark ink (it sits on the yellow island), so its lift shadow is paper-coloured and the soft shadow lighter, or the black offset doubles the letters */
+  .h-link[href="#agrigento"]:hover{filter:drop-shadow(0 8px 10px rgba(10,14,22,.22))}
+  .h-link[href="#agrigento"]:hover circle{filter:drop-shadow(2px 3px 0 var(--lava))}
+  .h-link[href="#agrigento"]:hover .h-name{filter:drop-shadow(2px 3px 0 var(--carta))}
 }
 @media (prefers-reduced-motion:reduce){
   .strip__days a,.bases__a,.h-link{transition:none}
