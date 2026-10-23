@@ -101,6 +101,9 @@ b,strong{font-weight:700}
 .h-link:hover text:last-of-type{text-decoration:underline;text-decoration-thickness:2px}
 .h-link:hover circle{stroke:var(--zolfo);stroke-width:3}
 [id^="day-"]{scroll-margin-top:16px}
+/* the extra anchor for the second day of a shared entry (day 7, day 20) must not take a grid cell */
+.day{position:relative}
+.day__anchor{position:absolute;top:0;left:0}
 @media (pointer:coarse){ .strip__days a{min-height:40px} }
 .bases__n{grid-row:span 3;width:26px;height:26px;border-radius:50%;background:var(--sw);color:var(--swt,var(--lava));display:grid;place-items:center;font-family:var(--f-display);font-weight:900;font-size:1rem;border:2px solid var(--swt,var(--lava));margin-top:3px}
 .bases__name{font-family:var(--f-display);font-weight:800;font-size:1.5rem;line-height:1.1;text-transform:uppercase;letter-spacing:.03em}
