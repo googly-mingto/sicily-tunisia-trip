@@ -1410,7 +1410,8 @@ window.TRIP_MAP = {"width":1200,"height":1000,"projection":"Mercator fitted to l
       if (live) {
         var mk = el('mask', { id: id + '-mk-' + key, maskUnits: 'userSpaceOnUse', x: -3000, y: -3000, width: 8000, height: 8000 }, defs);
         o.mask = el('path', { d: def.d, fill: 'none', stroke: '#fff' }, mk);
-        g.setAttribute('mask', 'url(#' + id + '-mk-' + key + ')');
+        o.g = g; o.maskUrl = 'url(#' + id + '-mk-' + key + ')'; o.state = '';
+        g.setAttribute('mask', o.maskUrl);
       }
       if (st.plate) o.plate = el('path', { d: def.d, fill: 'none', 'class': 's-l' }, g);
       if (st.ties) o.ties = el('path', { d: def.d, fill: 'none', 'class': st.ties.cls }, g);
@@ -1444,6 +1445,12 @@ window.TRIP_MAP = {"width":1200,"height":1000,"projection":"Mercator fitted to l
       if (!W || !H) return;
       var vb = fit([S.cam.x, S.cam.y, S.cam.w, S.cam.h], W, H, ANIM, cfg.left);
       var k = vb[2] / W;
+      /* Once the iris covers the whole screen the map under it is invisible, but it sits at its
+         tightest zoom (40x and more), where Safari spends long enough repainting it to freeze the
+         scroll under the postmark. Hide it, keep only the iris and the postmark. */
+      var covered = ANIM && S.iris >= 0.999;
+      if (covered !== hidden) { svg.style.visibility = over.style.visibility = covered ? 'hidden' : ''; hidden = covered; }
+      if (covered) { placeIris(vb, k, W, H); return; }
       svg.setAttribute('viewBox', vb.map(function (v) { return v.toFixed(3); }).join(' '));
       plate.setAttribute('transform', 'translate(' + (2.6 * k).toFixed(3) + ',' + (2.2 * k).toFixed(3) + ')');
       sicPlate.setAttribute('transform', 'translate(' + (-1.8 * k).toFixed(3) + ',' + (1.6 * k).toFixed(3) + ')');
@@ -1455,8 +1462,18 @@ window.TRIP_MAP = {"width":1200,"height":1000,"projection":"Mercator fitted to l
       all.forEach(function (key) {
         var o = R[key], st = o.st, t = o.live ? S.r[key] : 1;
         if (o.mask) {
-          o.mask.setAttribute('stroke-dashoffset', (o.len * (1 - t)).toFixed(3));
-          o.mask.setAttribute('stroke-width', (44 * k).toFixed(3));
+          /* only the leg being drawn needs its mask: a leg not started is hidden, a finished one shown whole.
+             Safari renders every mask at the full zoomed size of the route, which gets huge on the tight shots. */
+          var state = t <= 0.001 ? 'off' : t >= 0.999 ? 'done' : 'draw';
+          if (state !== o.state) {
+            o.g.style.visibility = state === 'off' ? 'hidden' : '';
+            if (state === 'draw') o.g.setAttribute('mask', o.maskUrl); else o.g.removeAttribute('mask');
+            o.state = state;
+          }
+          if (state === 'draw') {
+            o.mask.setAttribute('stroke-dashoffset', (o.len * (1 - t)).toFixed(3));
+            o.mask.setAttribute('stroke-width', (44 * k).toFixed(3));
+          }
         }
         if (o.plate) {
           o.plate.setAttribute('stroke-width', (st.plate.w * k).toFixed(3));
@@ -1498,15 +1515,17 @@ window.TRIP_MAP = {"width":1200,"height":1000,"projection":"Mercator fitted to l
         }
         vehs[vName].style.transform = tr;
       }
-      if (ANIM) {
-        if (S.iris > 0.001) {
-          var c = scr(pins[cfg.iris].pt);
-          var rad = Math.hypot(Math.max(c[0], W - c[0]), Math.max(c[1], H - c[1])) + 4;
-          iris.style.width = iris.style.height = (2 * rad) + 'px';
-          iris.style.transform = 'translate(' + (c[0] - rad).toFixed(1) + 'px,' + (c[1] - rad).toFixed(1) + 'px) scale(' + S.iris.toFixed(4) + ')';
-          iris.style.visibility = 'visible';
-        } else iris.style.visibility = 'hidden';
-      }
+      if (ANIM) placeIris(vb, k, W, H);
+    }
+    var hidden = false;
+    function placeIris(vb, k, W, H) {
+      if (S.iris > 0.001) {
+        var p = pins[cfg.iris].pt, c = [(p[0] - vb[0]) / k, (p[1] - vb[1]) / k];
+        var rad = Math.hypot(Math.max(c[0], W - c[0]), Math.max(c[1], H - c[1])) + 4;
+        iris.style.width = iris.style.height = (2 * rad) + 'px';
+        iris.style.transform = 'translate(' + (c[0] - rad).toFixed(1) + 'px,' + (c[1] - rad).toFixed(1) + 'px) scale(' + S.iris.toFixed(4) + ')';
+        iris.style.visibility = 'visible';
+      } else iris.style.visibility = 'hidden';
     }
     function remeasure() { Object.keys(pins).forEach(function (k) { pins[k].tw = 0; }); render(); }
     return { sec: sec, cfg: cfg, S: S, R: R, pins: pins, render: render, remeasure: remeasure };
